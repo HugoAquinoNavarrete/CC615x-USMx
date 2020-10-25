@@ -13,7 +13,7 @@ Before execute this script, execute `aws configure` in order to enable
    ```bash 
    ssh-keygen
    ```
-   Save them on the directory where you will run this script `<absolute_path>/cc615-key-iac.pem`, left empty `passphrase`
+   The key name must be `cc615-key-iac.pub`, save on the directory where you will run this script `<absolute_path>/cc615-key-iac.pem`, left empty `passphrase`
 
 ## 3. To connect through SSH to the VM (validate that in your Security Group you have enabled ingress permission to SSH - port TCP 22)
    ```bash
@@ -23,12 +23,13 @@ Before execute this script, execute `aws configure` in order to enable
 ## 4. Script compatible with Terraform version v0.11.3, these are the steps to download and install
    ```bash
   wget https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip
-  unzip terraform_0.13.3_linux_amd64.zip
+  unzip terraform_0.11.3_linux_amd64.zip
   sudo mv terraform /usr/local/bin/
   terraform --version 
    ```
+## 5. The first that the script will be executed, this command will initialize Terraform `terraform init`
 
-## 5. To execute the script type `terraform apply -var "minimum=<minumum_instances>" -var "maximum=<maximum_instances>"` when the following message appears, answer writing `yes`:
+## 6. To execute the script type `terraform apply -var "minimum=<minumum_instances>" -var "maximum=<maximum_instances>"` when the following message appears, answer writing `yes`:
    ```bash
    Do you want to perform these actions?
      Terraform will perform the actions described above.
@@ -43,12 +44,12 @@ The script after beeing executed will generate a message like this:
    Apply complete! Resources: <amount> added, 0 changed, 0 destroyed.
    ```
 
-## 6. To validate that the Load Balancer is responding, on the screen some Outputs variables will be displayed, find `elb_dns_name` and type:
+## 7. To validate that the Load Balancer is responding, on the screen some Outputs variables will be displayed, find `elb_dns_name` and type:
    ```bash
    curl <load_balancer_name>
    ```
 
-## 7. To eliminate the infrastructure created type `terraform destroy` when the follwing message appears, answer writing `yes`:
+## 8. To eliminate the infrastructure created type `terraform destroy` when the follwing message appears, answer writing `yes`:
    ```bash
    Do you really want to destroy?
      Terraform will destroy all your managed infrastructure, as shown above.
@@ -63,5 +64,5 @@ The script after beeing executed will generate a message like this:
    Destroy complete! Resources: <amount> destroyed.
    ```
 
-## 8. Validate on AWS portal that the resources were eliminated
+## 9. Validate on AWS portal that the resources were eliminated
 EC2 instances must appear with `Terminated` state and some minutes later will disappear
