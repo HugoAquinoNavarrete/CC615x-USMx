@@ -1,6 +1,7 @@
 # CC615x-USMx - Cloud Computing Infrastructure
 
 Script on Terraform to use IaC concepts to automate the deploy BallotOnline web site migration
+The script originally ran on Terraform version 0.11.3, it was migrated to 0.13.5
 
 ## 1. Configure AWS (this script runs on us-west-2 region)
 Before execute this script, execute `aws configure` in order to enable
@@ -13,17 +14,17 @@ Before execute this script, execute `aws configure` in order to enable
    ```bash 
    ssh-keygen
    ```
-   The key name must be `cc615-key-iac.pub`, save on the directory where you will run this script `<absolute_path>/cc615-key-iac.pem`, left empty `passphrase`
+   The key name must be `cc615x-key-iac.pub`, save on the directory where you will run this script `<absolute_path>/cc615x-key-iac`, left empty `passphrase`
 
 ## 3. To connect through SSH to the VM (validate that in your Security Group you have enabled ingress permission to SSH - port TCP 22)
    ```bash
-   ssh -v -l ubuntu -i cc615-key-iac.pem <public_ip_ec2_instance>
+   ssh -v -l ec2-user -i cc615x-key-iac <public_ip_ec2_instance>
    ```
 
-## 4. Script compatible with Terraform version v0.11.3, these are the steps to download and install
+## 4. Script compatible with Terraform version v0.13.5, these are the steps to download and install
    ```bash
-  wget https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip
-  unzip terraform_0.11.3_linux_amd64.zip
+  wget https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
+  unzip terraform_0.13.5_linux_amd64.zip
   sudo mv terraform /usr/local/bin/
   terraform --version 
    ```
