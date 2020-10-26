@@ -4,6 +4,8 @@
 # October 2020
 # Hugo Aquino, Panama
 
+# The script originally ran on Terraform 0.11.3 version, it was migrated to 0.13.5 version
+
 # Before execute this script, execute "aws configure" in order to enable 
 # AWS Access Key ID
 # AWS Secret Access Key
@@ -12,7 +14,7 @@
 
 # Generate a key executing
 # "ssh-keygen"
-# Save on the directory where you will run this script <absolute_path>/linux-training-key
+# Save on the directory where you will run this script <absolute_path>/key
 # Left in blank "passphrase"
 
 # This script runs on Terraform v0.11.3
@@ -25,6 +27,11 @@
 # To run the script type: 
 # terraform apply -var "minimum=<minimum_instances>" -var "maximum=<maximum_instances>"
 
+# The script will run in a new Terraform version (the original version ran in 0.11.3)
+terraform {
+  required_version = ">= 0.13"
+}
+
 # Variable to define the minimum and maximum amount of instances to be created
 variable minimum {
   default = 2
@@ -34,12 +41,14 @@ variable maximum {
   default = 3
 }
 
-
 # AWS deployment
 provider "aws" {
   profile = "default"
   region  = "us-west-2"
 }
+
+# To get Availability Zones info
+data "aws_availability_zones" "all" {}
 
 # Key generated
 resource "aws_key_pair" "cc615-key-iac" {
@@ -93,7 +102,8 @@ output "availability_zones" {
 # Create Load Balancer
 resource "aws_elb" "CC615-LB-IaC" {
   name = "CC615-LB-IaC"
-  availability_zones = ["${data.aws_availability_zones.all_zones.names}"]
+  #availability_zones = ["${data.aws_availability_zones.all_zones.names}"] # This was the line used on 0.11.3 version
+  availability_zones = data.aws_availability_zones.all.names
   security_groups = ["${data.aws_security_group.default.id}"]
   
   listener {
@@ -139,7 +149,8 @@ resource "aws_autoscaling_group" "CC615-Lab-Scaling-Group-IaC" {
   min_size         = "${var.minimum}"
   desired_capacity = "${var.minimum}"
   max_size         = "${var.maximum}"
-  availability_zones = ["${data.aws_availability_zones.all_zones.names}"]
+  #availability_zones = ["${data.aws_availability_zones.all_zones.names}"] #This was the line used on 0.11.3 version
+  availability_zones = data.aws_availability_zones.all.names
   load_balancers = ["${aws_elb.CC615-LB-IaC.name}"]
   launch_template {
     id      = "${aws_launch_template.CC615_Lab_IaC.id}"
