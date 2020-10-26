@@ -14,15 +14,21 @@
 
 # Generate a key executing
 # "ssh-keygen"
+<<<<<<< HEAD
 # Save on the directory where you will run this script <absolute_path>/key
+=======
+# The key name must be cc615-key-iac.pub, save on the directory where you will run this script <absolute_path>/cc615-key-iac.pub
+>>>>>>> d6482db70d1e31894a326f1bc22b1f8bb1546027
 # Left in blank "passphrase"
 
 # This script runs on Terraform v0.11.3
 # To install this version these are steps:
 # wget https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip
-# unzip terraform_0.13.3_linux_amd64.zip
+# unzip terraform_0.11.3_linux_amd64.zip
 # sudo mv terraform /usr/local/bin/
 # terraform --version
+
+# The first time the script runs, Terraform has be intilized with "terraform apply"
 
 # To run the script type: 
 # terraform apply -var "minimum=<minimum_instances>" -var "maximum=<maximum_instances>"
