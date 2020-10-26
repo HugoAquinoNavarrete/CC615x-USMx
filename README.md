@@ -1,7 +1,6 @@
 # CC615x-USMx - Cloud Computing Infrastructure
 
-Script on Terraform to use IaC concepts to automate the deploy BallotOnline web site migration
-The script originally ran on Terraform version 0.11.3, it was migrated to 0.13.5
+Script on Terraform to use IaC concepts to automate the deploy BallotOnline web site migration. The script originally ran on Terraform version 0.11.3, it was migrated to 0.13.5
 
 ## 1. Configure AWS (this script runs on us-west-2 region)
 Before execute this script, execute `aws configure` in order to enable
