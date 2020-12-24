@@ -49,7 +49,7 @@ The script after beeing executed will generate a message like this:
    curl <load_balancer_name>
    ```
 
-## 8. To eliminate the infrastructure created type `terraform destroy` when the follwing message appears, answer writing `yes`:
+## 8. To eliminate the infrastructure created type `terraform destroy` when the following message appears, answer writing `yes`:
    ```bash
    Do you really want to destroy?
      Terraform will destroy all your managed infrastructure, as shown above.
